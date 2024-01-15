@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+  
+.job-list {
+    max-width: 600px;
+    margin: 20px auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.add-job-btn {
+    width: 200px;
+   
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: auto;
+
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.job-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.completion-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    margin-right: 10px;
+}
+
+.completed {
+    background-image: url('../img/сheckmark.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.task-description {
+    flex-grow: 1;
+}
+
+.creation-time {
+    margin-right: 10px;     
+}
+
+.edit-btn, .delete-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ccc;
+    color: #fff;
+    margin-left: 10px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.edit-btn {
+    background-image: url('../img/pencil.svg');
+    background-position: center;
+    background-size: 50%;
+}
+
+.delete-btn {
+    background-color: #ff3333;
+    background-image: url('../img/cross.svg');
+}
