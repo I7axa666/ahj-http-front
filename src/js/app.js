@@ -1,7 +1,7 @@
-import Controller from "./controller";
+import Controller from './controller';
 
-const conrtoller = new Controller();
+const list = document.querySelector('.job-list');
 
-conrtoller.getAllTickets();
+const controllet = new Controller(list);
 
-
+controllet.init();

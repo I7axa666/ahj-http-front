@@ -7,35 +7,65 @@
 </head>
 <body>
 
-    <div class="job-list">
-        <button class="add-job-btn">Добавить задачу</button>
-        <ul>
-          
-          <li class="job-item">
-            <div class="completion-circle"></div>
-            <div class="task-description">Change Paint</div>
-            <div class="creation-time">01.01.2023 10:00</div>
-            <button class="edit-btn"></button>
-            <button class="delete-btn"></button>
-          </li>
-      
-          <li class="job-item">
-            <div class="completion-circle completed"></div>
-            <div class="task-description">Reinstall program</div>
-            <div class="creation-time">02.01.2023 15:30</div>
-            <button class="edit-btn"></button>
-            <button class="delete-btn"></button>
-          </li>
-      
-          <li class="job-item">
-            <div class="completion-circle"></div>
-            <div class="task-description">Install update</div>
-            <div class="creation-time">03.01.2023 08:45</div>
-            <button class="edit-btn"></button>
-            <button class="delete-btn"></button>
-          </li>
-        </ul>
+  <div class="job-list">
+
+    <div class="popup-container hidden">
+      <div class="popup-title">Добавить тикет</div>
+      <label for="short-description">Краткое описание</label>
+      <input type="text" class="input-field" id="name-field" placeholder="Введите название задачи">
+    
+      <label for="detailed-description">Полное описание</label>
+      <textarea type="text" rows="3" class="input-field" id="description-field" placeholder="Введите полное описание"></textarea>
+    
+      <div class="buttons-container">
+        <button class="action-button cancel-button">Отмена</button>
+        <button class="action-button ok-button">Ok</button>
+      </div>
     </div>
+
+    <button class="add-job-btn">Добавить задачу</button>
+    <ul>
+      
+      <li class="job-item">
+        <div class="completion-circle"></div>
+        <div class="task-name">
+          <H3 class="task-name">Change Paint</H3>
+          <div class="task-description hidden">
+            <p>Зменить краску в принтере на 301 этаже</p>
+          </div>
+        </div>
+        <div class="creation-time">01.01.2023 10:00</div>
+        <button class="edit-btn"></button>
+        <button class="delete-btn"></button>
+      </li>
+  
+      <li class="job-item">
+        <div class="completion-circle completed"></div>
+        <div class="task-name">
+          <H3 class="task-name">Change Paint</H3>
+          <div class="task-description hidden">
+            <p>Зменить краску в принтере на 301 этаже</p>
+          </div>
+        </div>
+        <div class="creation-time">02.01.2023 15:30</div>
+        <button class="edit-btn"></button>
+        <button class="delete-btn"></button>
+      </li>
+  
+      <li class="job-item">
+        <div class="completion-circle"></div>
+        <div class="task-name">
+          <H3 class="task-name">Change Paint</H3>
+          <div class="task-description hidden">
+            <p>Зменить краску в принтере на 301 этаже</p>
+          </div>
+        </div>
+        <div class="creation-time">03.01.2023 08:45</div>
+        <button class="edit-btn"></button>
+        <button class="delete-btn"></button>
+      </li>
+    </ul>
+</div>
     
 </body>
 </html>

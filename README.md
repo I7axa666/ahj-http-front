@@ -1,2 +1,2 @@
 ### Для задач
-![CI](https://github.com/I7axa666/ahj-testing/actions/workflows/web.yml/badge.svg)
+![CI](https://github.com/I7axa666/ahj-http-front/actions/workflows/web.yml/badge.svg)
