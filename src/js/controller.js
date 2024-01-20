@@ -1,76 +1,171 @@
+import TicketCard from "./Ticket";
+import Fetcher from "./fetch";
+
 export default class Controller {
     constructor(list) {
-        this.url = 'http://localhost:3000/';
         this.list = list;
         this.popup = null;
+        this.ul = list.querySelector('ul');
         this.createTicket = this.createTicket.bind(this);
+        this.restart = this.restart.bind(this);
+        this.init = this.init.bind(this);
+        this.getCurrentDate = this.getCurrentDate.bind(this);
+        this.id = null;
+        this.ticketName = null;
+        this.description = null;
+        this.status = null;
+
+        this.fetcher = new Fetcher();
+
     }
 
     init() {
         this.list.addEventListener('click', this.click);
 
+        this.restart();
     }
 
-    showElement(element) {
-        element.classList.toggle('hidden');
+    async restart() {
+        this.ul.innerHTML = '';
+
+        const ticketList = await this.fetcher.getTicketsList();
+       
+        ticketList.forEach(element => {
+            this.ul.appendChild(TicketCard.createTicket(element));
+        });
     }
 
-    click = (event) => {
-        const target = event.target;
-
-        if (target.classList.contains('task-name')){
-            this.showElement(
-                target.parentElement.querySelector('.task-description')
-            );
-        } else if (target.classList.contains('completion-circle')) {
-            target.classList.toggle('completed');
-        } else if (target.classList.contains('add-job-btn')) {
-            this.showPopup(true);
-        } else if (target.classList.contains('ok-button')) {
-            
-            this.createTicket();
-
-        } else if (target.classList.contains('cancel-button')) {
-            this.showPopup();
-        } 
-    }
-
-    showPopup = (action) => {
-        this.popup = document.querySelector('.popup-container');
-
-        if (action === true) {
-            this.popup.classList.remove('hidden');
+    async showElement(element) {
+        if (element.parentElement.querySelector('.task-description')) {
+            element.parentElement.querySelector('.task-description').remove();
         } else {
-            this.popup.classList.add('hidden');
+            const id = element.closest('.job-item').getAttribute('ticketID');
+            const description = await this.fetcher.getDescription(id);
+            const div = document.createElement('div');
+            div.classList.add('task-description');
+            const p = document.createElement('p');
+            p.textContent = description[0].description;
+            div.appendChild(p);
+            element.parentElement.appendChild(div);
         }
     }
 
-    async createTicket() {
-        const ticketName = this.popup.querySelector('#name-field').value;
-        const ticketDescription = this.popup.querySelector('#description-field').value;
+    click = async (event) => {
+        const target = event.target;
 
-        const request = fetch(this.url + '?method=createTicket', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
+        if (target.classList.contains('task-name')){
+            this.showElement(target);
+        } else if (target.classList.contains('completion-circle')) {
+           
+            if (target.classList.contains('completed')) {
+                this.status = false;
+            } else {
+                this.status = true;
+            }
+            target.classList.toggle('completed');
+
+            const id = target.parentElement.getAttribute('ticketId');
+            const description = await this.fetcher.getDescription(id);
+            
+            this.createTicket(
+                id, 
+                target.parentElement.querySelector('.task-name').textContent, 
+                description[0].description,
+                this.status
+            );
+
+
+
+        } else if (target.classList.contains('add-job-btn')) {
+            this.showPopup('add-ticket');
+        } else if (target.classList.contains('ok-button')) {
+            if (target.classList.contains('change-btn')){
+                this.createTicket(
+                    this.id, 
+                    this.popup.querySelector('#name-field-').value, 
+                    this.popup.querySelector('#description-field-').value
+                    );
+            } else {
+                this.createTicket();
+            }
+            
+        } else if (target.classList.contains('cancel-button')) {
+            this.showPopup('show');
+        } else if (target.classList.contains('delete-btn')) {
+            const id = target.parentElement.getAttribute('ticketId');
+            this.deleteTicket(id);
+        } else if (target.classList.contains('edit-btn')) {
+            this.showPopup('change-ticket');
+            this.showInfoForChange(target.closest('.job-item'))
+
+        }   
+    }
+
+    showPopup = (someClass) => {
+
+        this.popup = document.querySelector(`.${someClass}`)
+
+        this.popup.classList.toggle('show');
+        this.popup.classList.toggle('hidden');
+    }
+
+    async createTicket(id, name, description, status=false) {
+        if (id) {
+            const body = {
+                id: id,
+                name: name,
+                description: description,
+                status: status,
+                created: this.getCurrentDate()
+            }
+
+            this.fetcher.update(JSON.stringify(body));
+            location.reload();
+
+        } else {
+            const ticketName = this.popup.querySelector('#name-field').value;
+            const ticketDescription = this.popup.querySelector('#description-field').value;
+    
+            const body = JSON.stringify({
                 name: ticketName,
                 description: ticketDescription
             })
+    
+            this.fetcher.createTicket(body);
+    
+            this.popup.querySelector('#name-field').value = '';
+            this.popup.querySelector('#description-field').value = '';
+            this.popup.classList.toggle('hidden');
+            this.popup.classList.toggle('show');
+            location.reload();
+        }
 
-        });
-        
-        const result = await request;
-        const text = await result.text();
-        console.log(text);
-
-        this.popup.querySelector('#name-field').value = '';
-        this.popup.querySelector('#description-field').value = '';
-        this.popup.classList.add('hidden');
     };
+
+    deleteTicket(id) {
+        this.fetcher.deleteTicket(id);
+        location.reload();
+    }
+
+    async showInfoForChange(element){
+        const name = element.querySelector('H3').textContent;
+        this.id = element.getAttribute('ticketId');
+        const description = await this.fetcher.getDescription(this.id);
+        this.popup.querySelector('#name-field-').value = name;
+        this.popup.querySelector('#description-field-').value = description[0].description; 
+    }
+
+    getCurrentDate() {
+        const date = new Date();
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+    
+        return `${day}.${month}.${year}`;
+    }
+
 }
 
 
-// const url = 'https://ahj-http-back.onrender.com/';
+
 
