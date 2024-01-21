@@ -79,14 +79,19 @@ export default class Controller {
           this.popup.querySelector('#name-field-').value,
           this.popup.querySelector('#description-field-').value,
         );
+      } else if (target.classList.contains('confirmation-btn')) {
+        this.popup.classList.toggle('hidden');
+        this.popup.classList.toggle('show');
+        this.popup = null;
+        this.deleteTicket(this.id);
       } else {
         this.createTicket();
       }
     } else if (target.classList.contains('cancel-button')) {
       this.showPopup('show');
     } else if (target.classList.contains('delete-btn')) {
-      const id = target.parentElement.getAttribute('ticketId');
-      this.deleteTicket(id);
+      this.id = target.parentElement.getAttribute('ticketId');
+      this.showPopup('delete-ticket');
     } else if (target.classList.contains('edit-btn')) {
       this.showPopup('change-ticket');
       this.showInfoForChange(target.closest('.job-item'));
@@ -143,7 +148,8 @@ export default class Controller {
 
   async deleteTicket(id) {
     await this.fetcher.deleteTicket(id);
-    window.location.reload();
+    // window.location.reload();
+    this.restart();
   }
 
   async showInfoForChange(element) {

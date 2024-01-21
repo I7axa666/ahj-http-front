@@ -9,6 +9,9 @@
 
   <div class="job-list">
 
+    <button class="add-job-btn">Добавить задачу</button>
+    <ul></ul>
+
     <div class="popup-container add-ticket hidden">
       <div class="popup-title">Добавить тикет</div>
       <label for="short-description">Краткое описание</label>
@@ -37,8 +40,14 @@
       </div>
     </div>
 
-    <button class="add-job-btn">Добавить задачу</button>
-    <ul></ul>
+    <div class="popup-container delete-ticket hidden">
+      <div class="popup-title">Удалить тикет</div>
+      <label>Вы действительно хотите удалить тикет? Дейстиве необратимо.</label>
+      <div class="buttons-container">
+        <button class="action-button cancel-button">Отмена</button>
+        <button class="action-button ok-button confirmation-btn">Ok</button>
+      </div>
+    </div>
 </div>
     
 </body>
