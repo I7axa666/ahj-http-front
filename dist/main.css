@@ -1,0 +1,145 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+  
+.job-list {
+    max-width: 600px;
+    margin: 20px auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.add-job-btn {
+    width: 200px;
+   
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: auto;
+
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.job-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.completion-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    margin-right: 10px;
+}
+
+.completed {
+    background-image: url(b73d08db79e2143469c0.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.task-name {
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+.creation-time {
+    margin-right: 10px;     
+}
+
+.edit-btn, .delete-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ccc;
+    color: #fff;
+    margin-left: 10px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.edit-btn {
+    background-image: url(3b9367d420e8cb07e22d.svg);
+    background-position: center;
+    background-size: 50%;
+}
+
+.delete-btn {
+    background-color: #ff3333;
+    background-image: url(58b0b5ee27a154911120.svg);
+}
+
+.task-description {
+   margin: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.popup-container {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .popup-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .action-button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: #fff;
+  }
+
+  .cancel-button {
+    background-color: #ccc;
+  }
+
+/*# sourceMappingURL=main.css.map*/
